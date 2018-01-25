@@ -1,10 +1,9 @@
 class Human(name: String) extends Player(name){
 
-  def makeMove(): Move.Value = {
-    val userMove = scala.io.StdIn.readLine("Make a move ")
+  def genMove(): Move.Value = {
+    val userMove = scala.io.StdIn.readLine(name + ", Make a move: ")
     val move = inputToMove(userMove)
-    currentMove = move
-    move
+    makeMove(move)
   }
 
   def inputToMove(str: String): Move.Value = {

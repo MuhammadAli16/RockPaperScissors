@@ -5,17 +5,24 @@ class Game {
   def startGame(): Unit = {
     menu()
 
-    val rounds = scala.io.StdIn.readLine("How many rounds? ")
+    val roundsStr = scala.io.StdIn.readLine("How many rounds? ")
+    val rounds = roundsStr.toInt
 
-    for (_ <- 0 to rounds.toInt) {
-      player1.makeMove()
-      player2.makeMove()
+    do {
+      // Store the players moves - Ai will make decisions based on opposition moves
+      player1.getOppositionMoves = player2.moveList
+      player1.genMove()
+
+      player2.getOppositionMoves = player1.moveList
+      player2.genMove()
+
       println(player1.name + ": " + player1.currentMove)
       println(player2.name + ": " + player2.currentMove)
       checkWinner(player1, player2)
       displayScores()
       println()
-    }
+
+    } while (player1.score != rounds && player2.score != rounds)
 
     theEnd()
 
@@ -39,20 +46,20 @@ class Game {
   def declarePlayers(x: String): Unit = {
     if (x.equals("1")) {
       player1 = new Human("Human")
-      player2 = new AI("Robot")
+      player2 = new AI("Robocop")
     } else if (x.equals("2")) {
       player1 = new Human("Human")
       player2 = new Human("Human2")
     } else {
       player1 = new AI("Robocop")
-      player2 = new AI("Robot")
+      player2 = new AISmarter("SMARTER")
     }
 
   }
 
   def checkWinner(p1: Player, p2: Player): Unit =
     (p1.currentMove, p2.currentMove) match {
-      case (x, y) if x == y =>
+      case (x, y) if x == y => println("Tie!")
       case (Move.ROCK, Move.PAPER) => updateWinner(p2)
       case (Move.ROCK, Move.SCISSORS) => updateWinner(p1)
       case (Move.PAPER, Move.ROCK) => updateWinner(p1)
@@ -77,8 +84,6 @@ class Game {
       println(player1.name + " Congratulations! You Win!!")
     else if (player1.score < player2.score)
       println(player2.name + " Congratulations! You Win!!")
-    else
-      println("No winners this time :(")
 
     println("Game Over!")
   }

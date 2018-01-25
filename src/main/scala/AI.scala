@@ -1,8 +1,7 @@
 class AI(name: String) extends Player(name){
 
-  def makeMove(): Move.Value = {
+  def genMove(): Move.Value = {
     val move = Move(scala.util.Random.nextInt(Move.maxId))
-    currentMove = move
-    move
+    makeMove(move)
   }
 }
