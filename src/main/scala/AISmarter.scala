@@ -1,5 +1,3 @@
-import scala.collection.mutable.ArrayBuffer
-
 class AISmarter(name: String) extends Player(name){
 
 
@@ -14,9 +12,6 @@ class AISmarter(name: String) extends Player(name){
       case Move.PAPER => moveToMake = Move.SCISSORS
       case Move.SCISSORS => moveToMake = Move.ROCK
     }
-
-//
-//    val move = Move(scala.util.Random.nextInt(Move.maxId))
 
     makeMove(moveToMake)
   }

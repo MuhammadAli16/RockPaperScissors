@@ -2,7 +2,6 @@ import scala.collection.mutable.ArrayBuffer
 
 abstract class Player(val name: String){
 
-  name
   var score = 0
   var currentMove: Move.Value = _
   var moveList: ArrayBuffer[Move.Value] = ArrayBuffer()
