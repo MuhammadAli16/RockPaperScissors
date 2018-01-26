@@ -30,6 +30,8 @@ class Game {
 
   def menu(): Unit = {
     println("Welcome to Rock Paper Scissors!")
+    println("r or rock for Rock, p or paper for Paper, s or scissors for Scissors")
+    println("NOTE: If you specify and incorrect input, your move will default to scissors!")
     println("Pick a game Mode")
     println("1. Player vs Ai")
     println("2. Player vs Player")
@@ -46,7 +48,9 @@ class Game {
   def declarePlayers(x: String): Unit = {
     if (x.equals("1")) {
       player1 = new Human("Human")
-      player2 = new AI("Robocop")
+      println("Which Ai to face? 1. Random Ai 2. Slightly Better Ai")
+      val gameMode =  scala.io.StdIn.readLine()
+      if (gameMode.equals("1")) player2 = new AI("Guesser") else player2 = new AISmarter("Robocop")
     } else if (x.equals("2")) {
       player1 = new Human("Human")
       player2 = new Human("Human2")
@@ -66,7 +70,6 @@ class Game {
       case (Move.PAPER, Move.SCISSORS) => updateWinner(p2)
       case (Move.SCISSORS, Move.ROCK) => updateWinner(p2)
       case (Move.SCISSORS, Move.PAPER) => updateWinner(p1)
-
   }
 
   def updateWinner(winner: Player): Unit = {
