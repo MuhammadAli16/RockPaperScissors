@@ -5,8 +5,7 @@ class Game {
   def startGame(): Unit = {
     menu()
 
-    val roundsStr = scala.io.StdIn.readLine("How many rounds? ")
-    val rounds = roundsStr.toInt
+    val rounds = scala.io.StdIn.readLine("How many rounds? ").toInt
 
     do {
       // Store the players moves - Ai will make decisions based on opposition moves
@@ -28,7 +27,7 @@ class Game {
 
   }
 
-  def menu(): Unit = {
+  def printMenu(): Unit = {
     println("Welcome to Rock Paper Scissors!")
     println("r or rock for Rock, p or paper for Paper, s or scissors for Scissors")
     println("NOTE: If you specify and incorrect input, your move will default to scissors!")
@@ -36,8 +35,11 @@ class Game {
     println("1. Player vs Ai")
     println("2. Player vs Player")
     println("3. Ai vs Ai")
-    val gameMode =  scala.io.StdIn.readLine()
+  }
 
+  def menu(): Unit = {
+    printMenu()
+    val gameMode =  scala.io.StdIn.readLine()
     gameMode match {
       case "1" => declarePlayers("1")
       case "2" => declarePlayers("2")
